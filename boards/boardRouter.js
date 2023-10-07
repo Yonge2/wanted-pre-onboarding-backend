@@ -1,13 +1,14 @@
 const express = require('express');
 router = express.Router();
+const checkAccess = require('./boards.middleware/checkAccess');
 const createBoard = require('./boards.service/createBoard');
 const getBoard = require('./boards.service/getBoard');
 const deleteBoard = require('./boards.service/deleteBorad');
 const updateBoard = require('./boards.service/updateBoard');
 
-router.get('/', getBoard);
+router.get('/', checkAccess, getBoard);
 
-router.post('/', createBoard);
+router.post('/', checkAccess, createBoard);
 
     // 채용공고 등록
     // {
@@ -20,12 +21,12 @@ router.post('/', createBoard);
     // }
 
 
-router.put('/', updateBoard);
+router.put('/', checkAccess, updateBoard);
     //채용공고 수정
     //회사 id를 제외한 모든것 수정
 
 
-router.delete('/', deleteBoard);
+router.delete('/', checkAccess, deleteBoard);
     //채용공고 삭제(pk : 공고_id)
 
 // router.get('/', () => {
