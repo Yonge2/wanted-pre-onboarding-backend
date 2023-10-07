@@ -1,13 +1,21 @@
-import express from "express";
-import bodyParser from "body-parser";
+const express = require('express');
+const morgan = require('morgan');
 
+const { db } = require('./sequelize/models/index');
 const app = express();
 
-app.use(bodyParser.urlencoded({ extended: true}));
-app.use(bodyParser.json());
+db.sequelize.sync({ force: true })
+    .then(() => console.log('connection'))
+    .catch((e) => console.log('connection err: ', e));
 
-app.use('/boards', require('/'));
+app.use(morgan('dev'));
 
-app.listen(3000, ()=>{
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+
+app.use('/boards', require('./boards/boardRouter'));
+
+app.listen(3000, () => {
     console.log('server start');
 })
