@@ -1,4 +1,4 @@
-const Borad = require('../../sequelize/models/board');
+const { db } = require('../../sequelize/models/index')
 
 module.exports = createBoard = async (req, res) => {
 
@@ -8,11 +8,17 @@ module.exports = createBoard = async (req, res) => {
         return res.status(401).json({success: false, message: "접근 권한 없음"})
     }
 
-    const createObj = req.body;
-    createObj.company_id =company_id
-
     try {
-        const createResult = await Borad.create(createObj)
+        const companyInfo = await db.Company.findOne({
+            where: {company_id: company_id},
+            raw: true
+        })
+
+        const createObj = req.body;
+        createObj.company_id =company_id
+        createObj.company_region = companyInfo.company_region
+
+        const createResult = await db.Board.create(createObj)
         return res.status(201).json({ success: true, message: `${company_id} 공고 등록 완료!` })
     }
     catch (e) {
