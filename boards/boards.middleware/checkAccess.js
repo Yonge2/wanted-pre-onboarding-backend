@@ -3,8 +3,8 @@
 module.exports = checkAccess = (req, res, next)=>{
     
     //user code = 0, employer code = 1
-    const user = req.headers.user_id || req.body.user_id;
-    const employer = req.headers.company_id || req.body.company_id;
+    const user = req.headers.user_id
+    const employer = req.headers.company_id
 
     //개인 회원
     if(user&&!employer) {
