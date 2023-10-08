@@ -1,9 +1,8 @@
 const { Sequelize, Model } = require("sequelize");
 
-module.exports = class Employer extends Model {
+module.exports = class Company extends Model {
     static init(sequelize) {
         return super.init({
-            //attributes
             company_id: {
                 type: Sequelize.STRING,
                 allowNull: false,
@@ -15,14 +14,14 @@ module.exports = class Employer extends Model {
             }
         }, {
             sequelize,
-            tableName: 'employer',
+            tableName: 'company',
             charset: 'utf8',
             collate: 'utf8_general_ci'
         })
     }
 
     static initData(){
-        Employer.create({
+        Company.create({
             company_id: "wanted",
             company_region: "seul",
         })

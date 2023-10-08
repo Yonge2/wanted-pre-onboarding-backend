@@ -3,7 +3,6 @@ const { Sequelize, Model } = require("sequelize");
 module.exports = class Board extends Model {
     static init(sequelize) {
         return super.init({
-            //attributes
             board_id: {
                 type: Sequelize.INTEGER,
                 allowNull: false,
@@ -11,6 +10,10 @@ module.exports = class Board extends Model {
                 primaryKey: true
             },
             company_id: {
+                type: Sequelize.STRING,
+                allowNull: false,
+            },
+            company_region: {
                 type: Sequelize.STRING,
                 allowNull: false,
             },

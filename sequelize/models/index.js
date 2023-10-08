@@ -7,7 +7,7 @@ const config = require(__dirname + '/../config/config.json')[env];
 
 const User = require('./user');
 const UserApply = require('./user_apply');
-const Employer = require('./employer');
+const Company = require('./company');
 const Board = require('./board');
 
 const sequelize = new Sequelize(config.database, config.username, config.password, config);
@@ -42,17 +42,20 @@ db.sequelize = sequelize;
 
 db.User = User;
 db.User_apply = UserApply;
-db.Employer = Employer;
+db.Company = Company;
 db.Board = Board;
 
 User.init(sequelize);
 UserApply.init(sequelize);
-Employer.init(sequelize);
+Company.init(sequelize);
 Board.init(sequelize);
+
+Company.hasMany(db.Board, {foreignKey: "company_id"})
+Board.belongsTo(db.Company, {foreignKey: "company_id"})
 
 setTimeout(()=>{
     User.initData();
-    Employer.initData();
+    Company.initData();
 }, 1000);
 
 module.exports = { db };
