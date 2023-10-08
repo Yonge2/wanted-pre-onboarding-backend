@@ -7,7 +7,7 @@ module.exports = getBoardDetail = async (req, res) => {
     const company_id = encodeURI(req.query.company_id);
 
     try {
-        const findResult = await db.Employer.findAll({
+        const findResult = await db.Company.findAll({
             where: { company_id: company_id },
             include: [
                 {
