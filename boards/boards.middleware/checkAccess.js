@@ -6,12 +6,10 @@ module.exports = checkAccess = (req, res, next)=>{
     const user = req.headers.user_id || req.body.user_id;
     const employer = req.headers.company_id || req.body.company_id;
 
-    console.log(req.body);
-
     //개인 회원
     if(user&&!employer) {
         req.id = {
-            code : 0,
+            code : 'user',
             user_id: user
         }
         next();
@@ -19,12 +17,12 @@ module.exports = checkAccess = (req, res, next)=>{
     //기업 회원
     else if(employer&&!user){
         req.id = {
-            code : 1,
+            code : 'employer',
             company_id: employer
         }
         next();
     }
     else{
-        return res.status(401).json({success: false, message: "잘못된 인증 정보"});
+        return res.status(401).json({success: false, message: "잘못된 인증 정보, headers나 body를 확인하세요."});
     }
 }
