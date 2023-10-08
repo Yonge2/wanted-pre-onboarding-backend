@@ -7,7 +7,7 @@ module.exports = deleteBoard = async (req, res) => {
     const board_id = parseInt(deleteObj.board_id);
 
     //개인 회원 접근 x, 다른 회사 접근 x
-    if (req.id.code === 0 || req.id.company_id != company_id) {
+    if (req.id.code === 'user' || req.id.company_id != company_id) {
         return res.status(401).json({ success: false, message: "접근 권한 없음" })
     }
 
