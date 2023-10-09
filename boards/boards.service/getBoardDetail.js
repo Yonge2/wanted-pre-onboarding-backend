@@ -1,25 +1,22 @@
-const { db } = require('../../sequelize/models/index');
+const { db } = require('../../sequelize/models/index')
 
 
 module.exports = getBoardDetail = async (req, res) => {
 
-    const board_id = parseInt(req.query.board_id);
-    const company_id = encodeURI(req.query.company_id);
+    const board_id = parseInt(req.query.board_id)
+    const company_id = encodeURI(req.query.company_id)
 
     try {
         const findResult = await db.Company.findAll({
             where: { company_id: company_id },
-            include: [
-                {
-                    model: db.Board,
-                    required: true,
-                }
-            ],
+            include: [{
+                model: db.Board,
+                required: true,
+            }],
             raw: true
         })
 
         const resObj = await organizeResult(findResult, board_id)
-        console.log(resObj);
 
         res.status(200).json({ success: true, message: resObj })
     }
