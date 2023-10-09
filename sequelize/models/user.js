@@ -28,13 +28,18 @@ module.exports = class User extends Model {
     static initData(){
         User.create({
             user_id: "Jaeyong",
-            user_region: "Seoul",
-            user_skill: "node.js"
-        });
+            user_region: "서울",
+            user_skill: "nodejs"
+        })
         User.create({
             user_id: "Lee",
-            user_region: "Incheon",
+            user_region: "인천",
             user_skill: "java"
-        });
+        })
+        User.create({
+            user_id: "재용",
+            user_region: "경기",
+            user_skill: "kotlin"
+        })
     }
 }

@@ -37,6 +37,7 @@ db.UserApply.belongsTo(db.Board, {foreignKey: "board_id"})
 setTimeout(()=>{
     User.initData()
     Company.initData()
+    Board.initData()
 }, 1000)
 
 module.exports = { db }

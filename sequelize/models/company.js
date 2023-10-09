@@ -23,7 +23,11 @@ module.exports = class Company extends Model {
     static initData(){
         Company.create({
             company_id: "wanted",
-            company_region: "seul",
+            company_region: "서울",
+        })
+        Company.create({
+            company_id: "jycompany",
+            company_region: "경기",
         })
     }
 }

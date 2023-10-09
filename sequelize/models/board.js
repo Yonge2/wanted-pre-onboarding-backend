@@ -44,4 +44,25 @@ module.exports = class Board extends Model {
             collate: 'utf8_general_ci'
         })
     }
+
+    static initData(){
+        Board.create({
+            company_id: "wanted",
+            company_region: "서울",
+            emp_position: "백엔드 주니어 개발자",
+            emp_prize: 100000,
+            emp_skill: "java",
+            emp_title: "[원티드] 백엔드 주니어 개발자 채용",
+            emp_detail: "모집합니다 모집합니다 모집합니다 모집합니다 모집합니다 모집합니다 모집합니다 모집합니다 모집합니다 모집합니다"
+        })
+        Board.create({
+            company_id: "jycompany",
+            company_region: "경기",
+            emp_position: "백엔드 신입 개발자",
+            emp_prize: 50000,
+            emp_skill: "nodejs",
+            emp_title: "재용컴퍼니 채용",
+            emp_detail: "모집합니다 모집합니다 모집합니다 모집합니다 모집합니다 모집합니다 모집합니다 모집합니다 모집합니다 모집합니다"
+        })
+    }
 }
