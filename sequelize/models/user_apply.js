@@ -17,6 +17,7 @@ module.exports = class User_apply extends Model {
             board_id: {
                 type: Sequelize.INTEGER,
                 allowNull: false,
+                unique: true
             },
             company_id: {
                 type: Sequelize.STRING,
