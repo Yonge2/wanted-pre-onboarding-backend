@@ -3,21 +3,38 @@ const { db } = require('../../sequelize/models/index')
 
 
 module.exports = getBoard = async (req, res) => {
+    const userID = req.headers.user_id
 
     const search = req.query.search
+    const byDistance = Boolean(req.query.distance)
+
 
     const condition = (search) ? searchLike(search) : {}
 
     try {
-
+        let resResult = []
+        
         const searchResult = await db.Board.findAll({
             attributes:
                 ['board_id', 'company_id', 'emp_title', 'emp_position', 'emp_skill', 'emp_prize', 'company_region'],
             where: condition,
+            order: [
+                ['board_id', 'DESC']
+            ],
             raw: true,
         })
 
-        res.status(200).json({ success: true, message: searchResult })
+        if(userID&&byDistance){
+            const userRegion = await db.User.findOne({
+                attributes: ['user_region'],
+                where: {user_id: userID},
+                raw: true
+            })
+            resResult = sortByDistance(searchResult, userRegion.user_region)
+        }
+        else resResult = searchResult
+
+        res.status(200).json({ success: true, message: resResult })
     }
     catch (e) {
 
@@ -73,4 +90,32 @@ const searchLike = (search) => {
             }
         ]
     }
+}
+
+
+/**
+ * 임의로 설정한 거리지수에 따라 사용자와 가까운 회사순으로 정렬하는 함수
+ * @param {Object[]} boards 
+ * @param {string} userRegion 
+ * @returns sortedArray
+ */
+const sortByDistance = (boards, userRegion) => {
+
+    const distanceOption = {
+        '서울': 1,
+        '경기': 2,
+        '인천': 3,
+        '충청': 4,
+        '강원': 5,
+        '전라': 6,
+        '경상': 7,
+        '제주': 8
+    }
+    const sortedBoards = boards.sort((a, b) => {
+        const aRegion = a.company_region
+        const bRegion = b.company_region
+        return (Math.abs(distanceOption[userRegion] - distanceOption[aRegion])
+            - Math.abs(distanceOption[userRegion] - distanceOption[bRegion]))
+    })
+    return sortedBoards
 }
