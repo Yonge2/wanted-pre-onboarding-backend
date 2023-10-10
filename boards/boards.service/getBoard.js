@@ -12,6 +12,7 @@ module.exports = getBoard = async (req, res) => {
     const condition = (search) ? searchLike(search) : {}
 
     try {
+
         let resResult = []
         
         const searchResult = await db.Board.findAll({
@@ -24,12 +25,16 @@ module.exports = getBoard = async (req, res) => {
             raw: true,
         })
 
+        if(searchResult.length===0) return res.status(200).json({ success: true, message: "공고가 없네요 ! " })
+
         if(userID&&byDistance){
+
             const userRegion = await db.User.findOne({
                 attributes: ['user_region'],
                 where: {user_id: userID},
                 raw: true
             })
+            
             resResult = sortByDistance(searchResult, userRegion.user_region)
         }
         else resResult = searchResult
@@ -42,6 +47,8 @@ module.exports = getBoard = async (req, res) => {
         res.status(400).json({ success: false, mesaage: "잘못된 요청" })
     }
 }
+
+
 
 
 /**
