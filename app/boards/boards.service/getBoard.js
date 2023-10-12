@@ -2,7 +2,7 @@ const { Op } = require('sequelize')
 const { db } = require('../../sequelize/models/index')
 
 
-module.exports = getBoard = async (req, res) => {
+const getBoard = async (req, res) => {
     const userID = req.headers.user_id
 
     const search = req.query.search
@@ -121,8 +121,11 @@ const sortByDistance = (boards, userRegion) => {
     const sortedBoards = boards.sort((a, b) => {
         const aRegion = a.company_region
         const bRegion = b.company_region
+        console.log(aRegion, bRegion)
         return (Math.abs(distanceOption[userRegion] - distanceOption[aRegion])
             - Math.abs(distanceOption[userRegion] - distanceOption[bRegion]))
     })
     return sortedBoards
 }
+
+module.exports = { getBoard, searchLike, sortByDistance}

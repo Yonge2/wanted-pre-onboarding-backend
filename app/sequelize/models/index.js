@@ -33,11 +33,11 @@ db.UserApply.belongsTo(db.User, {foreignKey: "user_id"})
 db.Board.hasOne(db.UserApply, {foreignKey: "board_id"})
 db.UserApply.belongsTo(db.Board, {foreignKey: "board_id"})
 
-
-setTimeout(()=>{
+db.initData = ()=>{
     User.initData()
     Company.initData()
     Board.initData()
-}, 1000)
+}
+
 
 module.exports = { db }

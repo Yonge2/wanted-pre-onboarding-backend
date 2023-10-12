@@ -1,4 +1,4 @@
-const Board = require('../../sequelize/models/board')
+const { db } = require('../../sequelize/models/index')
 
 module.exports = deleteBoard = async (req, res) => {
     const deleteObj = req.body
@@ -13,12 +13,11 @@ module.exports = deleteBoard = async (req, res) => {
     }
 
     try {
-        const deleteResult = await Board.destroy({
+        const deleteResult = await db.Board.destroy({
             where: {
                 board_id: board_id
             }
         });
-        console.log("deleteResult", deleteResult)
         return res.status(201).json({ success: true, message: "해당공고 삭제완료" })
     }
     catch (e) {
