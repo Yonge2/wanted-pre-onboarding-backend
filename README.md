@@ -88,7 +88,7 @@ user_apply : board => 1 : 1
 ```
 
 ### Server Structure
-![<Structure>](<./images/pre-onboarding-directory.png>)
+![pre-onboarding-directory](https://github.com/Yonge2/wanted-pre-onboarding-backend/assets/99579139/52b57b4e-0834-4764-9230-3f4707de7b70)
 ```
 Monolothic Archetecture
 
