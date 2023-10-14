@@ -29,5 +29,13 @@ module.exports = class Company extends Model {
             company_id: "jycompany",
             company_region: "경기",
         })
+        Company.create({
+            company_id: "yongcom",
+            company_region: "제주",
+        })
+        Company.create({
+            company_id: "jaecompany",
+            company_region: "경상",
+        })
     }
 }
