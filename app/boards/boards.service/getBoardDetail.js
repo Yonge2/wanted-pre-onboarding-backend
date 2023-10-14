@@ -1,7 +1,7 @@
 const { db } = require('../../sequelize/models/index')
 
 
-module.exports = getBoardDetail = async (req, res) => {
+const getBoardDetail = async (req, res) => {
 
     const board_id = parseInt(req.query.board_id)
     const company_id = encodeURI(req.query.company_id)
@@ -65,3 +65,5 @@ const organizeResult = async (findResult, board_id) => {
 
     return resDetail
 }
+
+module.exports = { getBoardDetail, organizeResult }

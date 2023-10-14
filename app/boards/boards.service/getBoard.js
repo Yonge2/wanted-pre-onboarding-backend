@@ -8,7 +8,6 @@ const getBoard = async (req, res) => {
     const search = req.query.search
     const byDistance = Boolean(req.query.distance)
 
-
     const condition = (search) ? searchLike(search) : {}
 
     try {
@@ -42,7 +41,6 @@ const getBoard = async (req, res) => {
         res.status(200).json({ success: true, message: resResult })
     }
     catch (e) {
-
         console.log("getBoard Err : ", e)
         res.status(400).json({ success: false, mesaage: "잘못된 요청" })
     }
@@ -121,7 +119,6 @@ const sortByDistance = (boards, userRegion) => {
     const sortedBoards = boards.sort((a, b) => {
         const aRegion = a.company_region
         const bRegion = b.company_region
-        console.log(aRegion, bRegion)
         return (Math.abs(distanceOption[userRegion] - distanceOption[aRegion])
             - Math.abs(distanceOption[userRegion] - distanceOption[bRegion]))
     })
