@@ -1,5 +1,15 @@
 # Wanted-Pre-Onboarding-Backend <BR><BR> 채용 게시판 구현하기 - 이재용
 
+## 평가 체크리스트
+ - 요구사항 구현(가산점 포함) O
+ - 모델링 O
+ - 코드 가독성 코드 컨벤션 (노력O)
+ - ORM, RDBMS 사용 O
+ - Unit Test O
+ - README 요구사항 분석 및 구현과정 작성 O
+ - Git message convetion O
+<br>
+
 ## 목차
 1. 개요
 2. 설계
@@ -59,7 +69,7 @@ Unit 테스트는 Jest를 이용하여 함수 단위로 모두 테스트 했습�
    -> Custom header 이용하여 간단한 인증 구현(사용방법 : API 문서)
 
  - DB에 데이터 임의 생성
-   -> 
+   -> app.js 실행 1초 후, init()함수를 작동시켜 초기 데이터 세팅
 ```
 <br>
 
