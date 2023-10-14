@@ -4,10 +4,12 @@
 1. 개요
 2. 설계
 3. 구현
-4. Test
+4. 테스트
 
 
 ## 1. 개요
+본 과제는 원티드 프리온보딩 백엔드 인턴십 참여를 위한 사전 과제 입니다.
+
 
 ### 사용기술
 ```
@@ -31,16 +33,8 @@
 ### 기술 및 도구 선택
 <br>빠르게 개발 후 제출하기 위해 익숙한 javascript/nodejs 를 선택했습니다.<br><br>
 ORM 사용은 처음이기 때문에 자료가 많은 조합인 express, mysql, sequelize 을 선택했습니다.<br><br>
-API 테스트에는 테스트와 API 문서 작성을 동시에 진행할 수 있는 Postman을 사용했습니다.<br><br>
-<br>
-
-### 고려 사항
-```
- - ORM 사용하여 구현
- - 회원가입/로그인 생략
- - DB에 데이터 임의 생성
-```
-<br>
+Unit 테스트는 Jest를 이용하여 함수 단위로 모두 테스트 했습니다.<br><br>
+통합테스트 + API 테스트는 테스트와 API 문서 작성을 동시에 진행할 수 있는 Postman을 사용했습니다.<br><br>
 
 ### 요구사항
 ```
@@ -54,6 +48,22 @@ API 테스트에는 테스트와 API 문서 작성을 동시에 진행할 수 �
 4. 사용자 및 회사는 채용공고를 불러올 수 있으며, 검색할 수 있습니다.
 5. 채용 상세페이지에 접속하면, 자세한 내용과 해당 회사가 올린 다른 공고를 볼 수 있습니다.
 6. 사용자는 공고당 한 번 지원할 수 있습니다.
+<br>
+
+### 고려 사항 / 해결 방법
+```
+ - ORM 사용하여 구현 
+   -> Sequelize-MySQL 사용하여 구현.
+
+ - 회원가입/로그인 생략 
+   -> Custom header 이용하여 간단한 인증 구현(사용방법 : API 문서)
+
+ - DB에 데이터 임의 생성
+   -> 
+```
+<br>
+
+
 
 ## 2. 설계
 ### 모델링
@@ -72,15 +82,15 @@ user_apply : board => 1 : 1
 ```
 Monolothic Archetecture
 
-app.js로 시작해서, 모든 부분이 이어져 있습니다.
-서버 구조가 상당히 간단하기 때문에 MA 채택.
+서버 구조가 상당히 간단하기 때문에 MA구조를 선택했습니다.
+모든 부분이 연결 되어 있고, app.js를 바라보고 있습니다.
 ```
 
 
 
 ## 3. 구현
 ### 0.공통
-    자세한 요청&응답형식과 샘플은 API문서를 통해 확인할 수 있습니다.
+#### 자세한 요청&응답형식과 샘플은 [API문서를](https://documenter.getpostman.com/view/21311885/2s9YJgVM1x) 통해 확인할 수 있습니다.
 <br>
 
 ``` 
@@ -94,6 +104,7 @@ app.js로 시작해서, 모든 부분이 이어져 있습니다.
 <br>
 
 ### 1. 채용 공고 등록 (./board/boards.service/createBoard)
+[코드링크](https://github.com/Yonge2/wanted-pre-onboarding-backend/blob/master/app/boards/boards.service/createBoard.js)
 ```
 //FLOW
 <Request>
@@ -115,6 +126,7 @@ body로 받은 내용을 Model에 매핑 후 삽입
 <br>
 
 ### 2. 채용 공고 수정 (./board/boards.service/updateBoard)
+[코드링크](https://github.com/Yonge2/wanted-pre-onboarding-backend/blob/master/app/boards/boards.service/updateBoard.js)
 ```
 //FLOW
 <Request>
@@ -128,16 +140,21 @@ body로 받은 내용 매핑 후 수정
         ↓
 <Response>
 수정 후 성공여부 
+
+//특이사항
+ - comapny_id는 update를 위한 객체에서 제거함으로써 회사이름 변경이 불가 하도록 구현하였음.
 ```
 <br>
 
 ### 3. 채용 공고 삭제 (./board/boards.service/deleteBoard)
+[코드링크](https://github.com/Yonge2/wanted-pre-onboarding-backend/blob/master/app/boards/boards.service/deleteBoard.js)
 ```
-위의 채용 공고 수정(Update)과 같음.
+특이사항 제외, 위의 채용 공고 수정(Update)과 같음.
 ```
 <br>
 
 ### 4. 채용 공고 불러오기(검색포함) (./board/boards.service/getBoard)
+[코드링크](https://github.com/Yonge2/wanted-pre-onboarding-backend/blob/master/app/boards/boards.service/getBoard.js)
 ```
 //FLOW
 <Request>
@@ -168,6 +185,7 @@ body로 받은 내용 매핑 후 수정
 <br>
 
 ### 5. 채용 공고 상세페이지 (./board/boards.service/getBoardDetail)
+[코드링크](https://github.com/Yonge2/wanted-pre-onboarding-backend/blob/master/app/boards/boards.service/createBoardDetail.js)
 ```
 //FLOW
 <Request>
@@ -190,6 +208,7 @@ board_id = query.board_id인 게시물은 모든 내용을 resObject에 담기
 <br>
 
 ### 6. 사용자 지원 (./board/boards.service/userAply)
+[코드링크](https://github.com/Yonge2/wanted-pre-onboarding-backend/blob/master/app/boards/boards.service/userApply.js)
 ```
 //FLOW
 <Request>
@@ -209,5 +228,22 @@ user_apply 테이블에 지원내역 추가
 
 ## 테스트
 
-## API TEST
-[API TEST 및 요청, 응답형식 (API 문서)](https://documenter.getpostman.com/view/21311885/2s9YJgVM1x)
+###  Unit TEST
+#### Tool : Jest
+ - mock 함수를 이용하여 DB에 연결하지 않고 진행.
+ - service 단위로 테스트 파일을 만듦.
+ - service logic 단위로 모든 함수 테스트.
+ - 중복되어 불필요한 line은 생략함.
+#### 총 7개의 파일, 23개의 테스트 코드 결과
+![<test-result>](<./images/test-result.png>)
+
+#### Test Coverage
+![<test-coverage>](<./images/test-coverage.png>)
+
+(* Uncoverd Line : 중복되어 테스트가 불필요하다고 판단된 부분들)
+
+## 통합테스트
+#### Tool : Postman
+ - 단위테스트를 마친 코드들을 실제로 http request로 올바른 response를 받는지 확인.
+ - Test와 API 문서화를 동시에 진행함.
+ - [API TEST 및 요청, 응답형식 (API 문서)](https://documenter.getpostman.com/view/21311885/2s9YJgVM1x)
