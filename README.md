@@ -80,7 +80,7 @@ Unit 테스트는 Jest를 이용하여 함수 단위로 모두 테스트 했습�
 ```
  회사, 사용자, 채용공고, 지원내역 포함할 것.
 ```
-![<ERD>](<./images/pre-onboarding-erd.drawio.png>)
+![pre-onboarding-erd drawio](https://github.com/Yonge2/wanted-pre-onboarding-backend/assets/99579139/f9f59948-401f-4940-a234-b65806c4c93b)
 ```
 user : user_apply => 1 : N<br>
 company : board => 1 : N<br>
@@ -88,7 +88,7 @@ user_apply : board => 1 : 1
 ```
 
 ### Server Structure
-![<Structure>](<./images/pre-onboarding-directory.png>)
+![pre-onboarding-directory](https://github.com/Yonge2/wanted-pre-onboarding-backend/assets/99579139/52b57b4e-0834-4764-9230-3f4707de7b70)
 ```
 Monolothic Archetecture
 
@@ -245,10 +245,10 @@ user_apply 테이블에 지원내역 추가
  - service logic 단위로 모든 함수 테스트.
  - 중복되어 불필요한 line은 생략함.
 #### 총 7개의 파일, 23개의 테스트 코드 결과
-![<test-result>](<./images/test-result.png>)
+![test-result](https://github.com/Yonge2/wanted-pre-onboarding-backend/assets/99579139/0e34f97c-2890-4128-b3ae-9969dd1325c2)
 
 #### Test Coverage
-![<test-coverage>](<./images/test-coverage.png>)
+![test-coverage](https://github.com/Yonge2/wanted-pre-onboarding-backend/assets/99579139/0794aee5-2116-42b9-ad41-a3055615a648)
 
 (* Uncoverd Line : 중복되어 테스트가 불필요하다고 판단된 부분들)
 
