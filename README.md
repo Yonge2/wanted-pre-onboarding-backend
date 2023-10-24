@@ -257,3 +257,5 @@ user_apply 테이블에 지원내역 추가
  - 단위테스트를 마친 코드들을 실제로 http request로 올바른 response를 받는지 확인.
  - Test와 API 문서화를 동시에 진행함.
  - [API TEST 및 요청, 응답형식 (API 문서)](https://documenter.getpostman.com/view/21311885/2s9YJgVM1x)
+
+ convential commits test
